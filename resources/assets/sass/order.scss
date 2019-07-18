@@ -1,0 +1,184 @@
+#to-pay-container {
+  padding-top: 80px;
+  .address-wrap {
+    height: 80px;
+    overflow-y: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAAICAMAAAAFmMshAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACNUExURV6X8v3n57TP+faUlPf6/2ad8/zf3/JeXv/////7+9/q/Pefn+fw/X6t9crd+/719fz9//NoaPJhYW6i85S69vm0tO/1/tTk/PV+fv7v76rI+Han9PzU1PJkZPNubviqqvq/v/q+vvR1dfipqfWIiPvKyoqz9p7A95/B9/aKioiy9b7V+vvJyb/W+vR3dzIYPh8AAACcSURBVCjPldLHDoNADEXRAQaYofcOKaS3//+8VAV7Z7/91ZEsCwXnnF36mgG13kHQF9YCpIbFYLc3xAYFg+0jpRa49TM6O200ZKsTg82viVrgeDXS2bRErOxsOmub8hN9YV2mdHacY8SaHLaTv+wN6/VEZzO/hWxyzxlXPlb/8AXvH4yfsgz0U1HPYIsAlGJoGOzOQWwdMtiLh9onBzMVnawViSIAAAAASUVORK5CYII=);
+    background-position: left bottom;
+    background-repeat: repeat-x;
+    .address-default {
+      padding: 20px 10px 20px 58px;
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoBAMAAAB+0KVeAAAAMFBMVEUAAABmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmbTjrt6AAAAEHRSTlMA/sTT40yeinRhKh8U7q456VdWlwAAAHRJREFUKM9jGFqASQeLILPwBkxBLkcvLEo3y37AFORRFMVmleAELKIPJbAIsgkWYBEtFMMiyCGogEV0otABTEFWQQNMQW5HLIJLhDG181/EYlGgHDZrErA4SByb0xuweFISW3AEYAm4+1iCWGQBFkFrhiEIAIO4ENVt+Wy6AAAAAElFTkSuQmCC);
+      background-position: right center;
+      background-repeat: no-repeat;
+      background-size: 20px 20px;
+      span {
+        position: absolute;
+        top: 20px;
+        left: 10px;
+        width: 2em;
+        font-weight: 400;
+        font-size: 14px;
+        color: #999;
+      }
+      ul {
+        position: relative;
+        padding: 0 30px 0 0;
+        list-style-type: none;
+        margin: 0;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+#pay-order-container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .order-title {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .order-content {
+    text-align: left;
+    .amount {
+      color: #e4393c;
+    }
+  }
+  .order-pay-btn {
+    text-align: center;
+    border: 1px solid #09bb07;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 16px;
+    background-color: #09bb07;
+    &.disabled {
+      background-color: #5cb85c;
+      border-color: #4cae4c;
+      pointer-events: none;
+      cursor: not-allowed;
+      filter: alpha(opacity=65);
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      opacity: .65;
+    }
+  }
+}
+
+#order-list-part {
+  margin-top: 46px;
+  .order-list-container {
+    margin-top: 15px;
+    background-color: #fff;
+    .title {
+      color: #999;
+    }
+    .order-info {
+      padding: 10px;
+      border-top: 1px solid #d7d7d7;
+    }
+    .order-detail {
+      padding: 10px;
+      overflow: auto;
+      zoom: 1;
+      border-top: 1px solid #d7d7d7;
+      img {
+        width: 75px;
+        height: 75px;
+        float: left;
+        margin-right: 15px;
+      }
+    }
+  }
+}
+
+#order-detail-part {
+  .title {
+    color: #999;
+    width: 80px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .info{
+    color:#09bb07;
+  }
+  .price{
+    color:#ff2a74;
+  }
+  .address {
+    color: #2d78f4;
+    text-decoration: underline;
+  }
+  .order-detail-wrapper {
+    background-color: #fff;
+    margin-bottom: 15px;
+    padding: 0 20px;
+    .detail-container {
+      padding: 15px 0;
+      p{
+        padding:5px 0;
+      }
+      &.underline {
+        border-bottom: 1px solid #d7d7d7;
+      }
+      .commodity-list{
+        padding:5px 0;
+        overflow: auto;
+        zoom: 1;
+        img{
+          width:75px;
+          height:75px;
+          float:left;
+          margin-right:10px;
+        }
+      ul{
+        li{
+          display: inline-block;
+          text-align: left;
+        }
+        li.number{
+          color:#999;
+          float: right;
+        }
+      }
+      }
+      .order-result{
+        zoom:1;
+        overflow: auto;
+        .result-name{
+          float:left;
+          text-align: left;
+        }
+        .result-value{
+          float:right;
+          text-align: right;
+        }
+      }
+      .result-amount{
+        text-align: right;
+      }
+    }
+  }
+}
+
+#data-scroll-loading {
+  width: 15px;
+  height: 15px;
+  padding: 10px;
+  margin: 0 auto;
+}
+
+#data-scroll-end {
+  padding: 10px;
+  text-align: center;
+  color: #09bb07;
+}
+

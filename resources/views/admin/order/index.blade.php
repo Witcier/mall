@@ -1,0 +1,124 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-sm-4">
+            <h2>订单管理</h2>
+        </div>
+    </div>
+
+    <div class="wrapper wrapper-content">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>订单列表</h5>
+            </div>
+            <div class="ibox-content">
+                <a href="{{url('admin/order?status=unpay')}}"
+                   class="btn {{ $status == 'unpay' ? 'btn-primary' : 'btn-default' }} ">
+                    待支付
+                </a>
+                <a href="{{url('admin/order?status=unship')}}"
+                   class="btn {{ $status == 'unship' ? 'btn-primary' : 'btn-default' }}">
+                    待发货
+                </a>
+                <a href="{{url('admin/order?status=shiped')}}"
+                   class="btn {{ $status == 'shiped' ? 'btn-primary' : 'btn-default' }}">
+                    已发货
+                </a>
+                <a href="{{url('admin/order?status=received')}}"
+                   class="btn {{ $status == 'received' ? 'btn-primary' : 'btn-default' }}">
+                    已完成
+                </a>
+                <a href="{{url('admin/order?status=refunding')}}"
+                   class="btn {{ $status == 'refunding' ? 'btn-primary' : 'btn-default' }}">
+                    退款中
+                </a>
+                <a href="{{url('admin/order?status=refunded')}}"
+                   class="btn {{ $status == 'refunded' ? 'btn-primary' : 'btn-default' }}">
+                    退款完成
+                </a>
+                {{--<a href="{{url('admin/order?status=closed')}}" class="btn {{ $status == 'closed' ? 'btn-primary' : 'btn-default' }}">--}}
+                {{--已关闭--}}
+                {{--</a>--}}
+                <table class="table table-responsive table-hover">
+                    <thead>
+                    <tr>
+                        <th>头像</th>
+                        <th>订单号</th>
+                        <th>快递公司</th>
+                        <th>快递单号</th>
+                        <th>支付状态</th>
+                        <th>订单总价</th>
+                        <th>配送状态</th>
+                        <th>收货人姓名</th>
+                        <th>收货人电话</th>
+                        <th>收货人地址</th>
+                        <th>下单时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @if(!empty($data->items()))
+                        @foreach($data->items() as $order)
+                            <tr>
+                                <td><img class="head-img-url" src="{{$order->follow->headimgurl}}"/></td>
+                                <td>{{$order->order_number}}</td>
+                                <td>{{$order->ship_name}}</td>
+                                <td>{{$order->ship_number}}</td>
+                                <td>{{$order->pay_status}}</td>
+                                <td>&yen; {{$order->order_amount}}</td>
+                                <td>{{$order->ship_status}}</td>
+                                <td>{{$order->name}}</td>
+                                <td>{{$order->phone}}</td>
+                                <td>{{$order->province}} {{$order->city}} {{$order->district}} {{$order->address}}</td>
+                                <td>{{$order->created_at}}</td>
+                                <td>
+                                    <a href="javascript:;" data-order="{{$order->id}}" class="info-btn">查看</a>
+                                    <br>
+                                    <a href="{{url('admin/ship/create')}}/{{$order->id}}" id="{{$order->id}}">发货</a>
+                                    <br>
+                                    <a href="{{url('admin/ship/edit')}}/{{$order->id}}">修改快递</a>
+                                    <br>
+                                    <a href="{{url('admin/ship/getshipping')}}/{{$order->id}}" id="{{$order->id}}">查询物流</a>
+                                    <br>
+                                    <a href="{{url('admin/order/refunded')}}/{{$order->id}}" id="{{$order->id}}">确认退款</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                    </tbody>
+                </table>
+                <nav class="text-center">
+                    {!! $data->appends(['status'=>$status])->render() !!}
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal inmodal fade" id="orderModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">关闭</span>
+                    </button>
+                    <h4 class="modal-title">订单详情</h4>
+                </div>
+                <div class="modal-body">
+                        <table id="data-table" class="table table-responsive table-hover">
+                        
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('scriptTag')
+    <script src="{{asset('js/admin/order/orderInfo.js')}}"></script>
+@endsection
