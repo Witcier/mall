@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\WechatFollow;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -179,6 +180,40 @@ class OrderController extends Controller
         }
     }
 
+    //订单支付（余额）
+    public function orderpay($id)
+    {
+        $order = WechatOrder::findOrFail($id);
+        $order_amount = $order->order_amount;
+        $follow = session()->get('wechat.oauth_user');
+        $wecaht_follow = WechatFollow::where('openid','=',$follow->id)->first();
+        $follow_money = $wecaht_follow->money;
+        if ($order_amount > $follow_money){
+            return response()->json([
+                'code' => -1,
+                'message' => '你的余额不足'
+            ]);
+        }else{
+            $wecaht_follow->money = $follow_money - $order_amount;
+            if ($wecaht_follow->save()){
+                $order->pay_status = '已支付';
+                $order->save();
+                return response()->json([
+                    'code' => 0,
+                    'message' => '支付成功'
+                ]);
+            }else{
+                return response()->json([
+                    'code' => -1,
+                    'message' => '支付失败'
+                ]);
+            }
+
+        }
+
+
+    }
+
     //确认收货
     public function receive($id)
     {
@@ -218,17 +253,24 @@ class OrderController extends Controller
     public function refunding($id)
     {
         $order = WechatOrder::findOrFail($id);
-        $order->order_status = 30;
-        if ($order->save()){
-            return response()->json([
-                'code' => 0,
-                'message' => '订单申请退款成功'
-            ]);
-        }else{
+        if ($order->order_status = 30){
             return response()->json([
                 'code' => -1,
-                'message' => '订单申请退款失败'
+                'message' => '你已经申请过退款了'
             ]);
+        }else{
+            $order->order_status = 30;
+            if ($order->save()){
+                return response()->json([
+                    'code' => 0,
+                    'message' => '订单申请退款成功'
+                ]);
+            }else{
+                return response()->json([
+                    'code' => -1,
+                    'message' => '订单申请退款失败'
+                ]);
+            }
         }
     }
 

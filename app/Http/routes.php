@@ -96,6 +96,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'web', 'namespace' => 'Api'], f
     Route::get('orderlist/{type}', 'OrderController@index');
     // 获取订单详情
     Route::get('orderdetail/{order}', 'OrderController@detail');
+    // 订单支付（余额）
+    Route::post('orderpay/{order}', 'OrderController@orderpay');
     // 确认收货
     Route::post('orderreceive/{order}', 'OrderController@receive');
     // 取消订单
@@ -106,6 +108,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'web', 'namespace' => 'Api'], f
     Route::get('testcomment/{id}', 'CommentController@testcomment');
     // 订单评价
     Route::post('comment/{id}', 'CommentController@comment');
+    // 获取商品评价
+    Route::get('getcomment/{id}', 'CommentController@getcomment');
     // 意见建议
     Route::post('suggestion', 'UserController@suggestion');
     // 地址管理

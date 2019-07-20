@@ -11,13 +11,13 @@
              v-link="{name:'order-detail',params:{'hashid':order.id}}">
             <div class="order-info">
                 <div v-if="order.order_status === 10">
-                    <p v-show="order.pay_status === '未支付'"><span class="title">状态：</span>{{order.pay_status}}</p>
-                    <p v-show="order.pay_status === '已支付'"><span class="title">状态：</span>{{order.ship_status}}</p>
+                    <p v-show="order.pay_status === '未支付'"><span class="title">状 态：</span>{{order.pay_status}}</p>
+                    <p v-show="order.pay_status === '已支付'"><span class="title">状 态：</span>{{order.ship_status}}</p>
                 </div>
                 <div v-else>
-                    <p><span class="title">状态：</span>{{orderStatus(order.order_status)}}</p>
+                    <p><span class="title">状 态：</span>{{orderStatus(order.order_status)}}</p>
                 </div>
-                <p><span class="title">总价：</span>&yen;{{order.order_amount | transformPrice}}</p>
+                <p><span class="title">总 价：</span>&yen;{{order.order_amount | transformPrice}}</p>
             </div>
             <div class="order-detail" v-for="detail in order.details">
                 <img :src="detail.commodity_img" alt="{{detail.commodity_name}}"/>

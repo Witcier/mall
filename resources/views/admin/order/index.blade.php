@@ -47,6 +47,7 @@
                         <th>订单号</th>
                         <th>快递公司</th>
                         <th>快递单号</th>
+                        <th>订单状态</th>
                         <th>支付状态</th>
                         <th>订单总价</th>
                         <th>配送状态</th>
@@ -65,6 +66,7 @@
                                 <td>{{$order->order_number}}</td>
                                 <td>{{$order->ship_name}}</td>
                                 <td>{{$order->ship_number}}</td>
+                                <td>{{$order->getOrderStatus($order->order_status)}}</td>
                                 <td>{{$order->pay_status}}</td>
                                 <td>&yen; {{$order->order_amount}}</td>
                                 <td>{{$order->ship_status}}</td>

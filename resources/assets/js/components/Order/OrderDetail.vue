@@ -5,12 +5,12 @@
                 <p class="info">感谢您在iMall购物，欢迎您再次光临！</p>
             </div>
             <div class="detail-container">
-                <div v-if="order.order_status === '10'">
-                    <p v-show="order.pay_status === '未支付'"><span class="title">状态：</span>{{order.pay_status}}</p>
-                    <p v-show="order.pay_status === '已支付'"><span class="title">状态：</span>{{order.ship_status}}</p>
+                <div v-if="order.order_status === 10">
+                    <p v-show="order.pay_status === '未支付'"><span class="title">状  态：</span>{{order.pay_status}}</p>
+                    <p v-show="order.pay_status === '已支付'"><span class="title">状  态：</span>{{order.ship_status}}</p>
                 </div>
                 <div v-else>
-                    <p><span class="title">状态：</span>{{orderStatus(order.order_status)}}</p>
+                    <p><span class="title">状  态：</span>{{orderStatus(order.order_status)}}</p>
                 </div>
                 <p><span class="title">订单编号：</span>{{order.order_number}}</p>
                 <p><span class="title">下单时间：</span>{{order.created_at}}</p>
@@ -67,7 +67,10 @@
             </div>
         </div>
     </div>
+    <div v-if="order.order_status != 10">
 
+    </div>
+    <div v-else>
         <div v-if="order.pay_status == '已支付'">
             <div id="btn-groups-container" v-if="order.ship_status == '已收货'">
                 <div class="add-cart-btn" @click="afterSale">售后</div>
@@ -82,8 +85,7 @@
             <div class="add-cart-btn" @click="cancelOrder">取消订单</div>
             <div class="to-pay-btn" @click="toPay">支付</div>
         </div>
-
-
+    </div>
 </template>
 
 s
@@ -139,9 +141,13 @@ s
             },
             //支付订单
             toPay:function () {
-                let commodity = this.commodity.id+ '-' + this.commodity_num;
-                let order = {from:'default',commodity:commodity};
-                this.$route.router.go({name:'order-settle',query:order})
+                Indicator.open({
+                    text: '跳转支付...'
+                });
+                let vm = this;
+                let itemId = this.$route.params.hashid;
+                Indicator.close();
+                vm.$route.router.go({name:'order-paystyle',params:{'hashid':itemId}});
             },
             //取消订单
             cancelOrder:function () {

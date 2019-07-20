@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\WechatFollow;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -151,10 +152,19 @@ EOF;
     public function refunded($id)
     {
         $order = WechatOrder::findOrFail($id);
-        $order->order_status = 40;
-        if ($order->save()){
-            return redirect()->back();
+        $order_amount = $order->order_amount;
+        $openid = $order->openid;
+        if ($order->order_status = 30){
+            $order->order_status = 40;
+            if ($order->save()){
+                $follow = WechatFollow::where('openid','=',$openid)->first();
+                $money = $follow->money;
+                $follow->money = $money + $order_amount;
+                $follow->save();
+                return redirect()->back()->withSuccess('退款成功！');;
+            }
         }
+
     }
 
 }
