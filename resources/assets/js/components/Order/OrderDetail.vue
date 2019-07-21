@@ -206,7 +206,9 @@ s
             },
             //售后
             afterSale:function () {
-
+                let vm = this;
+                let itemId = this.$route.params.hashid;
+                vm.$route.router.go({name:'order-return',params:{'hashid':itemId}});
             },
 
             orderStatus:function (status) {

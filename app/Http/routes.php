@@ -119,7 +119,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'web', 'namespace' => 'Api'], f
     Route::put('address/{address}', 'UserController@updateAddress');
     Route::get('default/address', 'UserController@defaultAddress');
     Route::delete('address/{address}', 'UserController@deleteAddress');
-
-    //获取余额
+    // 获取余额
     Route::get('money', 'UserController@money');
+    // 获取退货原因
+    Route::get('getreason/{id}', 'ReturnController@getReasonReturn');
 });
