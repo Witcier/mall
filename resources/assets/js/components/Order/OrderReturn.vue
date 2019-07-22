@@ -39,7 +39,7 @@
     <form id="suggest-form" @submit.prevent="submitProductReturn()">
         <div class="order-detail-wrapper">
             <mt-cell title="退货原因：" class="mint-field">
-                <select name="sel" id="sel" @change="look" v-model="selectList">
+                <select name="reason_return" id="reason_return" @change="changeProduct($event)" v-model="selectList">
                     <option v-for="texts in list" :value.sync="texts.value" ref="newText">{{texts.text}}</option>
                 </select>
             </mt-cell>
@@ -49,15 +49,15 @@
                     slot="suggestion"
                     type="textarea"
                     rows="6"
-                    :value.sync="productReturn.content">
+                    :value.sync="cause">
             </mt-field>
         </div>
         <div class="order-detail-wrapper">
             <div class="uc-address-part">
-                <mt-field label="快递公司：" placeholder="请填写货物退回时的快递公司" :value.sync="productReturn.ship_name"></mt-field>
+                <mt-field label="快递公司：" placeholder="请填写货物退回时的快递公司" :value.sync="ship_name"></mt-field>
             </div>
             <div class="uc-address-part">
-                <mt-field label="快递单号：" placeholder="请填写货物退回时的快递单号" :value.sync="productReturn.ship_number"></mt-field>
+                <mt-field label="快递单号：" placeholder="请填写货物退回时的快递单号" :value.sync="ship_number"></mt-field>
             </div>
         </div>
         <div class="form-wrapper">
@@ -77,8 +77,11 @@ s
         data(){
             return{
                 order:{},
-                suggestion:'',
-                form_disabled:true,
+                reason_return:{},
+                cause:'',
+                ship_name:'',
+                ship_number:'',
+                form_disabled:false,
                 selectList : {},
                 list : [
                     {value : 10 ,text : "拍错了/不想要了"},
@@ -93,14 +96,6 @@ s
         },
         components:{
             Field, Indicator, Toast
-        },
-        watch:{
-            'suggestion':{
-                handler:function(val){
-                    val !== '' ? this.$set('form_disabled', false)
-                        : this.$set('form_disabled', true);
-                }
-            }
         },
         created() {
             this.fetchDetails();
@@ -122,14 +117,36 @@ s
                     }
                 });
             },
-
-            look(){
-                let vm = this ;
-                console.log(vm.$refs.newText[vm.selectList].text)
+            
+            changeProduct(event) {
+                let vm = this;
+                vm.selectList = event.target.value;
+                let reason_return = vm.selectList;
+                vm.$set('reason_return', reason_return);
             },
 
             submitProductReturn:function () {
-
+                let vm = this;
+                let itemId = this.$route.params.hashid;
+                Indicator.open();
+                vm.$http.post('/api/return/' + itemId,{
+                    reason_return:vm.reason_return,
+                    cause:vm.cause,
+                    ship_name:vm.ship_name,
+                    ship_number:vm.ship_number
+                }).then(response => {
+                    Indicator.close();
+                    if (response.data.code == -1) {
+                        Toast({
+                            message: response.data.message
+                        });
+                    }
+                    if (response.data.code == 0) {
+                        Toast({
+                            message: response.data.message
+                        });
+                    }
+                });
             }
         }
     }

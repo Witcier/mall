@@ -121,6 +121,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'web', 'namespace' => 'Api'], f
     Route::delete('address/{address}', 'UserController@deleteAddress');
     // 获取余额
     Route::get('money', 'UserController@money');
-    // 获取退货原因
-    Route::get('getreason/{id}', 'ReturnController@getReasonReturn');
+    // 保存退货原因
+    Route::post('return/{id}', 'ReturnController@storeReturn');
 });
