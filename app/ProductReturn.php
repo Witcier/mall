@@ -33,4 +33,8 @@ class ProductReturn extends Model
         return $arr;
     }
 
+    public function orders(){
+        return $this->belongsTo('App\WechatOrder','order_id','id');
+    }
+
 }
