@@ -89,6 +89,10 @@ export default function (router) {
         '/suggestion': {
             name: "suggestion",
             component: require('./components/Suggestion/Suggestion.vue')
+        },
+        '/merch-apply': {
+            name: "merch-apply",
+            component: require('./components/Merch/MerchApply.vue')
         }
     });
 }
