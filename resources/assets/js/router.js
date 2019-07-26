@@ -93,6 +93,10 @@ export default function (router) {
         '/merch-apply': {
             name: "merch-apply",
             component: require('./components/Merch/MerchApply.vue')
+        },
+        '/:hashid/merch-detail': {
+            name: "merch-detail",
+            component: require('./components/Merch/MerchDetail.vue')
         }
     });
 }
