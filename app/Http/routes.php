@@ -133,3 +133,15 @@ Route::group(['prefix' => 'api', 'middleware' => 'web', 'namespace' => 'Api'], f
     Route::post('merch/register', 'MerchController@register');
     Route::post('merch/detail/{id}', 'MerchController@detail');
 });
+
+// 商家登录
+Route::group(['prefix' => 'merch', 'namespace' => 'Merch'], function (){
+    Route::get('login', 'MerchController@login');
+    Route::post('login', 'MerchController@actlogin');
+});
+// merch商家
+Route::group(['prefix' => 'merch', 'middleware' => 'auth.merch', 'namespace' => 'Merch'], function (){
+    Route::get('/', 'MerchController@index');
+    Route::get('/logout', 'MerchController@logout');
+
+});

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>iMall | 管理员控制台</title>
+    <title>iMall | 商家控制台</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Zhang Lei">
@@ -48,7 +48,7 @@
                         <a href="#">
                             <span class="clear">
                                 <span class="block m-t-xs">
-                                    <strong class="font-bold"> {{ Auth::user()->name }}</strong>
+                                    <strong class="font-bold"> {{ Auth::guard('merch')->user()->name }}</strong>
                                 </span>
                             </span>
                         </a>
@@ -58,84 +58,62 @@
                     </div>
                 </li>
 
-                <li class="{{ request()->is('/') ? 'active' : '' }}">
+                <li class="{{ request()->is('merch') ? 'active' : '' }}">
                     <a href="/">
                         <i class="fa fa-dashboard"></i>
                         <span class="nav-label">控制台</span>
                     </a>
                 </li>
 
-                <li class="{{ request()->is('admin/order*') ? 'active' : '' }}">
-                    <a href="#">
-                        <i class="fa fa-align-justify"></i>
-                        <span class="nav-label">商家管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                </li>
-
-                <li class="{{ request()->is('admin/order*') ? 'active' : '' }}">
+                <li class="{{ request()->is('merch/order*') ? 'active' : '' }}">
                     <a href="#">
                         <i class="fa fa-align-justify"></i>
                         <span class="nav-label">订单管理</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level collapse">
-                        <li class="{{request()->is('admin/order*') ? 'active' : ''}}">
-                            <a href="{{url('admin/order')}}">订单</a>
+                        <li class="{{request()->is('merch/order*') ? 'active' : ''}}">
+                            <a href="{{url('merch/order')}}">订单</a>
                         </li>
                         <li class="{{request()->is('admin/order*') ? 'active' : ''}}">
-                            <a href="{{url('admin/order/getreturn')}}">售后服务</a>
+                            <a href="{{url('merch/order/getreturn')}}">售后服务</a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="{{request()->is('admin/product/*') ? 'active' : ''}}">
+                <li class="{{request()->is('merch/product/*') ? 'active' : ''}}">
                     <a href="#">
                         <i class="fa fa-product-hunt"></i>
                         <span class="nav-label">商品管理</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level collapse">
-                        <li class="{{request()->is('admin/product/commodity*') ? 'active' : ''}}">
-                            <a href="{{url('admin/product/commodity')}}">商品</a>
+                        <li class="{{request()->is('merch/product/commodity*') ? 'active' : ''}}">
+                            <a href="{{url('merch/product/commodity')}}">商品</a>
                         </li>
-                        <li class="{{request()->is('admin/product/topic*') ? 'active' : ''}}">
-                            <a href="{{url('admin/product/topic')}}">专题</a>
+                        <li class="{{request()->is('merch/product/topic*') ? 'active' : ''}}">
+                            <a href="{{url('merch/product/topic')}}">专题</a>
                         </li>
-                        <li class="{{request()->is('admin/product/plate*') ? 'active' : ''}}">
-                            <a href="{{url('admin/product/plate')}}">板块</a>
+                        <li class="{{request()->is('merch/product/plate*') ? 'active' : ''}}">
+                            <a href="{{url('merch/product/plate')}}">板块</a>
                         </li>
-                        <li class="{{request()->is('admin/product/category*') ? 'active' : ''}}">
-                            <a href="{{url('admin/product/category')}}">分类</a>
+                        <li class="{{request()->is('merch/product/category*') ? 'active' : ''}}">
+                            <a href="{{url('merch/product/category')}}">分类</a>
                         </li>
                     </ul>
                 </li>
 
-                <li class="{{request()->is('admin/wechat/*') ? 'active' : ''}}">
-                    <a href="#">
-                        <i class="fa fa-wechat"></i>
-                        <span class="nav-label">公众号管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level collapse">
-                        <li class="{{request()->is('admin/wechat/menu*') ? 'active' : ''}}"><a
-                                    href="{{url('admin/wechat/menu')}}">菜单设置</a></li>
-                        <li class="{{request()->is('admin/wechat/follow') ? 'active' : ''}}"><a
-                                    href="{{url('admin/wechat/follow')}}">粉丝列表</a></li>
-                    </ul>
-                </li>
-
-                <li class="{{request()->is('admin/shop/*') ? 'active' : ''}}">
+                <li class="{{request()->is('merch/shop/*') ? 'active' : ''}}">
                     <a href="#">
                         <i class="fa fa-shopping-bag"></i>
                         <span class="nav-label">店铺管理</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level collapse">
-                        <li class="{{request()->is('admin/shop/config') ? 'active' : ''}}"><a
-                                    href="{{url('admin/shop/config')}}">商铺配置</a></li>
-                        <li class="{{request()->is('admin/shop/banner*') ? 'active' : ''}}"><a
-                                    href="{{url('admin/shop/banner')}}">轮播图</a></li>
+                        <li class="{{request()->is('merch/shop/config') ? 'active' : ''}}"><a
+                                    href="{{url('merch/shop/config')}}">商铺配置</a></li>
+                        <li class="{{request()->is('merch/shop/banner*') ? 'active' : ''}}"><a
+                                    href="{{url('merch/shop/banner')}}">轮播图</a></li>
                     </ul>
                 </li>
 
@@ -157,7 +135,7 @@
                         <span class="m-r-sm text-muted welcome-message">Welcome to iMall Admin Console.</span>
                     </li>
                     <li>
-                        <a href="{{url('/logout')}}">
+                        <a href="{{url('merch/logout')}}">
                             <i class="fa fa-sign-out"></i> 注销
                         </a>
                     </li>

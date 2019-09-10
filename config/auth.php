@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'merch' => [
+            'driver' => 'session',
+            'provider' => 'merchs',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -68,6 +73,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
+        ],
+
+        'merchs' => [
+            'driver' => 'eloquent',
+            'model' => App\Merch::class,
         ],
 
         // 'users' => [
