@@ -16,7 +16,7 @@
     "cross-env": "^2.0.0",
     "css-loader": "^0.23.1",
     "file-loader": "^0.9.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-minify-css": "^1.2.4",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^2.2.0",
